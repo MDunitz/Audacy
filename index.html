@@ -1,6 +1,6 @@
 <!-- index.html -->
   <!DOCTYPE html>
-  <html>
+  <html ng-app="audacyApp">
   <head>
     <!-- load bootstrap, font and materialize via CDN -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
@@ -10,14 +10,16 @@
     <!--load angular and angular routes via CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-    <script src="script.js"></script>
+    <!--may need to change this src -->
+    <script src="./app/script.js"></script>
   </head>
-  <body>
+  <body ng-controller="mainController">
     <!--HEADER TODO??? -->
     <header>
       <!--should I add a header?-->
     </header>
     <div id="main">
+      {{ message }}
     </div>
   </body>
   </html>

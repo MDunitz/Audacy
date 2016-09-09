@@ -4,11 +4,17 @@
   "description": "Audacy branded login screen with google sign-in for authentication, displaying data from google directory with D3 in a sunburst diagram",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "npm run tests"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MDunitz/Audacy.git"
+  },
+  "dependencies":{
+    "angular-ui-router": "0.2.18",
+    "express": "~4.0.0",
+    "ng-fx": "^2.0.4"
   },
   "author": "Madison Dunitz",
   "license": "ISC",
