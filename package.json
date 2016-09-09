@@ -1,0 +1,19 @@
+{
+  "name": "audacy_coding_challenge",
+  "version": "1.0.0",
+  "description": "Audacy branded login screen with google sign-in for authentication, displaying data from google directory with D3 in a sunburst diagram",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MDunitz/Audacy.git"
+  },
+  "author": "Madison Dunitz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MDunitz/Audacy/issues"
+  },
+  "homepage": "https://github.com/MDunitz/Audacy#readme"
+}
