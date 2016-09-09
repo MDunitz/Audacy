@@ -10,16 +10,29 @@
     <!--load angular and angular routes via CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="158978351182-ksvdtuk7gbh3srqbl4pq2j6877etp0v5.apps.googleusercontent.com">
     <!--may need to change this src -->
-    <script src="./app/script.js"></script>
+    <script src="/../script.js"></script>
   </head>
   <body ng-controller="mainController">
     <!--HEADER TODO??? -->
     <header>
-      <!--should I add a header?-->
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <div class="g-signout">
+        <a href="#" onclick="signOut();">Sign out</a>
+        <script>
+          function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            });
+          }
+        </script>
+      </div>
     </header>
     <div id="main">
-      {{ message }}
+      HELLO WORLD
     </div>
   </body>
   </html>
