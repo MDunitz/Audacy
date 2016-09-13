@@ -15,6 +15,8 @@
     "angular-ui-router": "0.2.18",
     "body-parser": "^1.15.2",
     "express": "~4.0.0",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^12.4.0",
     "ng-fx": "^2.0.4"
   },
   "author": "Madison Dunitz",

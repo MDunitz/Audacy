@@ -1,23 +1,16 @@
-<!-- index.html -->
-  <!DOCTYPE html>
-  <html ng-app="audacyApp">
+<!DOCTYPE html>
+<html ng-app="appname">
+
   <head>
-    <!-- load bootstrap, font and materialize via CDN -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.1/angular-materialize.js"/>
-    
-    <!--load angular and angular routes via CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="158978351182-ksvdtuk7gbh3srqbl4pq2j6877etp0v5.apps.googleusercontent.com">
-    <!--may need to change this src -->
-    <script src="/../script.js"></script>
+    <link href="style.css" rel="stylesheet"/>
+    <script src="script.js"></script>
   </head>
-  <body ng-controller="mainController">
-    <!--HEADER TODO??? -->
-    <header>
+
+  <body>
+  <header>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
       <div class="g-signout">
         <a href="#" onclick="signOut();">Sign out</a>
@@ -31,9 +24,9 @@
         </script>
       </div>
     </header>
-    <div id="main">
-      HELLO WORLD
+    <div ng-controller="appCtrl">
+      <p>{{greeting.text}} </p>
     </div>
   </body>
-  </html>
-      
+
+</html>
