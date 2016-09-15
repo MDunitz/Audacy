@@ -6,7 +6,10 @@
      <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="158978351182-ksvdtuk7gbh3srqbl4pq2j6877etp0v5.apps.googleusercontent.com">
     <link href="style.css" rel="stylesheet"/>
+<!--     <script type="roleDataController.js"></script>
+ -->    <!-- <script type="roleFactory.js"></script> -->
     <script src="script.js"></script>
+
   </head>
 
   <body>
@@ -26,8 +29,8 @@
     </header>
     <div ng-controller="audacyCtrl">
       <p>{{greeting.text}} </p>
-          <div>
-            <button class="btn" ng-click="getData()">Get Admin Data</button>
+          <div ng-controller = "roleDataController">
+            <button class="btn" ng-click="getRoleInfo()">Get Admin Data</button>
           </div>
           <div>PUT D3 Sunburst here</div>
     </div>

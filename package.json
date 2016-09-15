@@ -17,6 +17,7 @@
     "express": "~4.0.0",
     "google-auth-library": "^0.9.8",
     "googleapis": "^12.4.0",
+    "morgan": "^1.7.0",
     "ng-fx": "^2.0.4"
   },
   "author": "Madison Dunitz",

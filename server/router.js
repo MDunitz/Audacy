@@ -1,5 +1,5 @@
 var controller = require('./controller.js')
 
 module.exports = function(app){
-  app.get('/roleInfo', controller.getRoleInfo);
+  app.get('/roleInfo', controller.getRoleInfo(res));
 };

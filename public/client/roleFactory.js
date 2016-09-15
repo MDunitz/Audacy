@@ -1,10 +1,10 @@
-angular.module('audacyChallenge.roleModel', [])
+angular.module('audacyChallenge.roleFactory', [])
 
   .factory('getData', function($http){
     var roleData = {};
     var privilegeData = {};
-
-    var retrieveInfo = function(user){
+    //TODO does retrieveInfo need to be passed an argument (client id?)
+    var retrieveInfo = function(){
       return $http({
         method: 'GET',
         url: '/api/roleInfo'
@@ -13,5 +13,5 @@ angular.module('audacyChallenge.roleModel', [])
         console.log('in client recieved data', responseData)
       })
     };
-    return{retrieveInfo:retrieveInfo}
+    return {retrieveInfo:retrieveInfo}
   });
