@@ -6,7 +6,7 @@ var googleAuth = require('google-auth-library');
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/admin-directory_v1-nodejs-quickstart.json
-var SCOPES = ['https://www.googleapis.com/auth/admin.directory.user'];
+var SCOPES = ['https://www.googleapis.com/auth/admin.directory.user', 'https://www.googleapis.com/auth/admin.directory.rolemanagement', 'https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'admin-directory_v1-nodejs-quickstart.json';
@@ -120,8 +120,27 @@ function listUsers(auth) {
       console.log('Users:');
       for (var i = 0; i < users.length; i++) {
         var user = users[i];
-        console.log('%s (%s)', user.primaryEmail, user.name.fullName);
+        listUserRoles(auth, user.id)
+        //console.log(user);
+
       }
     }
   });
 }
+
+function listUserRoles(auth, userId) {
+  var service = google.admin('directory_v1');
+    service.roles.list({
+      auth: auth,
+      customer: 'my_customer'
+    }, function (err, response) {
+      if(err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      var role = response
+      console.log(role.items[0].rolePrivileges)
+    })
+}
+
+
