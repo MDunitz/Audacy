@@ -3,6 +3,7 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+var request = require('request')
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/admin-directory_v1-nodejs-quickstart.json
@@ -19,7 +20,7 @@ var controller = {};
      * @param {Object} credentials The authorization client credentials.
      * @param {function} callback The callback to call with the authorized client.
      */
-controller.authorize = function (credentials, callback) {
+controller.authorize = function (credentials, callback, res) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
@@ -29,10 +30,10 @@ controller.authorize = function (credentials, callback) {
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
-      getNewToken(oauth2Client, callback);
+      getNewToken(oauth2Client, callback, res);
     } else {
       oauth2Client.credentials = JSON.parse(token);
-      callback(oauth2Client);
+      callback(oauth2Client, res);
     }
   });
 };
@@ -46,8 +47,8 @@ controller.getRoleInfo = function(res){
     }
     // Authorize a client with the loaded credentials, then call the
     // Directory API.
-    controller.authorize(JSON.parse(content), controller.listUsers);
-  })
+    controller.authorize(JSON.parse(content), controller.listUsers, res);
+  }).then(res.send(response))
 };
 
 /**
@@ -58,7 +59,7 @@ controller.getRoleInfo = function(res){
  * @param {getEventsCallback} callback The callback to call with the authorized
  *     client.
  */
-controller.getNewToken = function(oauth2Client, callback) {
+controller.getNewToken = function(oauth2Client, callback, res) {
   var authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
@@ -73,11 +74,14 @@ controller.getNewToken = function(oauth2Client, callback) {
     oauth2Client.getToken(code, function(err, token) {
       if (err) {
         console.log('Error while trying to retrieve access token', err);
-        return;
+        res.send(500, err);
+      }else{
+        oauth2Client.credentials = token;
+        storeToken(token);
+        callback(oauth2Client, res).then(function(response){
+          res.send(200, response)
+        });
       }
-      oauth2Client.credentials = token;
-      storeToken(token);
-      callback(oauth2Client);
     });
   });
 };
@@ -104,8 +108,9 @@ controller.storeToken = function(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-controller.listUsers = function(auth) {
+controller.listUsers = function(auth, res) {
   var service = google.admin('directory_v1');
+  var results = [];
   service.users.list({
     auth: auth,
     customer: 'my_customer',
@@ -114,6 +119,7 @@ controller.listUsers = function(auth) {
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
+      res.send(500, err);
       return;
     }
     var users = response.users;
@@ -123,15 +129,15 @@ controller.listUsers = function(auth) {
       console.log('Users:');
       for (var i = 0; i < users.length; i++) {
         var user = users[i];
-        controller.listUserRoles(auth, user.id)
-        //console.log(user);
-
+        var x = controller.listUserRoles(auth, user.id, res)
+        results.push(x);
       }
+      res.send(200, results)
     }
   });
 }
 
-controller.listUserRoles = function(auth, userId) {
+controller.listUserRoles = function(auth, userId, res) {
   var service = google.admin('directory_v1');
     service.roles.list({
       auth: auth,
@@ -140,10 +146,10 @@ controller.listUserRoles = function(auth, userId) {
   function (err, response) {
     if(err) {
       console.log('The API returned an error: ' + err);
-      return;
+      res.send(500, err)
     }
-    var role = response
-    console.log(role.items[0].rolePrivileges)
+    console.log(response)
+    res.send(200, response)
   })
 };
 
